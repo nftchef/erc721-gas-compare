@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract Optimized is ERC721B, Ownable {
     constructor() ERC721B("MyToken", "MTK") {}
 
-    function safeMint(address to, uint256 tokenId) public onlyOwner {
+    function safeMint(address to, uint256 tokenId) public {
         _safeMint(to, tokenId);
     }
 

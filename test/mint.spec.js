@@ -1,5 +1,6 @@
 let unoptimized;
 let optimized;
+let golden_optimized;
 console.log("baseline: 69292");
 describe("Open Zeppelin", () => {
   beforeEach(async () => {
@@ -10,13 +11,17 @@ describe("Open Zeppelin", () => {
   it("regular mint", async () => {
     const [acc1, acc2] = await ethers.getSigners();
 
-    const t = await unoptomized.safeMint(acc1.address, 1);
-    const t1 = await unoptomized.safeMint(acc1.address, 2);
+    const t = await unoptomized
+      .safeMint(acc1.address, 1)
+      .then((tx) => tx.wait());
+    const t1 = await unoptomized
+      .safeMint(acc1.address, 2)
+      .then((tx) => tx.wait());
 
-    const tx = await t.wait();
-    const tx1 = await t1.wait();
-    console.log("\t t1 Gas Used", tx.gasUsed);
-    console.log("\t t2 Gas Used", tx1.gasUsed);
+    // const tx = await t.wait();
+    // const tx1 = await t1.wait();
+    console.log("\t t1 Gas Used", t.gasUsed);
+    console.log("\t t2 Gas Used", t1.gasUsed);
   });
 });
 
@@ -28,11 +33,30 @@ describe("Optimized", () => {
   it("Optimized mint", async () => {
     const [acc1, acc2] = await ethers.getSigners();
 
-    const t = await optimized.safeMint(acc2.address, 3);
-    const t1 = await optimized.safeMint(acc2.address, 4);
-    const tx = await t.wait();
-    const tx1 = await t1.wait();
-    console.log("\t t1 Gas Used", tx.gasUsed);
-    console.log("\t t2 Gas Used", tx1.gasUsed);
+    const t = await optimized.safeMint(acc2.address, 3).then((tx) => tx.wait());
+    const t1 = await optimized
+      .safeMint(acc2.address, 4)
+      .then((tx) => tx.wait());
+    console.log("\t t1 Gas Used", t.gasUsed);
+    console.log("\t t2 Gas Used", t1.gasUsed);
+  });
+});
+
+describe("Golden Papa", () => {
+  beforeEach(async () => {
+    const Golden = await ethers.getContractFactory("Golden");
+    golden_optimized = await Golden.deploy();
+  });
+  it("papaver mint", async () => {
+    const [acc1, acc2] = await ethers.getSigners();
+
+    const t = await golden_optimized
+      .safeMint(acc2.address)
+      .then((tx) => tx.wait());
+    const t1 = await golden_optimized
+      .safeMint(acc2.address)
+      .then((tx) => tx.wait());
+    console.log("\t t1 Gas Used", t.gasUsed);
+    console.log("\t t2 Gas Used", t1.gasUsed);
   });
 });

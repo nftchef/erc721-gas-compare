@@ -7,16 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract OZ is ERC721, Ownable {
     constructor() ERC721("MyToken", "MTK") {}
 
-    function safeMint(address to, uint256 tokenId) public onlyOwner {
+    function safeMint(address to, uint256 tokenId) public {
         _safeMint(to, tokenId);
-    }
-
-    function tokenURI(uint256 tokenId)
-        public
-        pure
-        override
-        returns (string memory)
-    {
-        return string(abi.encodePacked("http://example"));
     }
 }
