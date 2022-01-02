@@ -8,7 +8,10 @@ contract MasonChance is ERC721Enumerable, Ownable {
     constructor() ERC721("MyToken", "MTK") {}
 
     function safeMint(address to, uint256 _quantity) public {
-        _mint(_msgSender(), _quantity);
+        uint256 totalSupply = _owners.length;
+        for (uint256 i; i < _quantity; i++) {
+            _mint(_msgSender(), totalSupply + i);
+        }
     }
 
     function tokenURI(uint256 tokenId)

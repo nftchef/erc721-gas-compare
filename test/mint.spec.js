@@ -51,13 +51,17 @@ describe("Genetic Chain @Papaver", () => {
     const [acc1, acc2] = await ethers.getSigners();
 
     const t = await golden_optimized
-      .safeMint(acc2.address)
+      .safeMint(acc1.address)
       .then((tx) => tx.wait());
     const t1 = await golden_optimized
       .safeMint(acc2.address)
       .then((tx) => tx.wait());
-    console.log("\t t1 Gas Used", t.gasUsed);
+    const t2 = await golden_optimized
+      .safeMint(acc2.address)
+      .then((tx) => tx.wait());
+    console.log("\t Token 0 Gas Used", t.gasUsed);
     console.log("\t t2 Gas Used", t1.gasUsed);
+    console.log("\t t3 Gas Used", t2.gasUsed);
   });
 });
 
@@ -70,12 +74,16 @@ describe("Nuclear Nerds: Mason Chance", () => {
     const [acc1, acc2] = await ethers.getSigners();
 
     const t = await masonChance
-      .safeMint(acc2.address, 1)
+      .safeMint(acc1.address, 1)
       .then((tx) => tx.wait());
     const t1 = await masonChance
       .safeMint(acc2.address, 1)
       .then((tx) => tx.wait());
-    console.log("\t t1 Gas Used", t.gasUsed);
+    const t2 = await masonChance
+      .safeMint(acc2.address, 1)
+      .then((tx) => tx.wait());
+    console.log("\t Token 0 Gas Used", t.gasUsed);
     console.log("\t t2 Gas Used", t1.gasUsed);
+    console.log("\t t3 Gas Used", t2.gasUsed);
   });
 });
