@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-import "./ERC721B.sol";
+import "./MasonChanceEnumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Optimized is ERC721B, Ownable {
-    constructor() ERC721B("MyToken", "MTK") {}
+contract MasonChance is ERC721Enumerable, Ownable {
+    constructor() ERC721("MyToken", "MTK") {}
 
-    function safeMint(address to, uint256 tokenId) public {
-        _safeMint(to, tokenId);
+    function safeMint(address to, uint256 _quantity) public {
+        _mint(_msgSender(), _quantity);
     }
 
     function tokenURI(uint256 tokenId)

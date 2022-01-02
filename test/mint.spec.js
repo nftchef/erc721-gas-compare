@@ -42,7 +42,7 @@ describe("Optimized", () => {
   });
 });
 
-describe("Golden Papa", () => {
+describe("Genetic Chain @Papaver", () => {
   beforeEach(async () => {
     const Golden = await ethers.getContractFactory("Golden");
     golden_optimized = await Golden.deploy();
@@ -55,6 +55,25 @@ describe("Golden Papa", () => {
       .then((tx) => tx.wait());
     const t1 = await golden_optimized
       .safeMint(acc2.address)
+      .then((tx) => tx.wait());
+    console.log("\t t1 Gas Used", t.gasUsed);
+    console.log("\t t2 Gas Used", t1.gasUsed);
+  });
+});
+
+describe("Nuclear Nerds: Mason Chance", () => {
+  beforeEach(async () => {
+    const MC = await ethers.getContractFactory("MasonChance");
+    masonChance = await MC.deploy();
+  });
+  it("Mason CHance mint", async () => {
+    const [acc1, acc2] = await ethers.getSigners();
+
+    const t = await masonChance
+      .safeMint(acc2.address, 1)
+      .then((tx) => tx.wait());
+    const t1 = await masonChance
+      .safeMint(acc2.address, 1)
       .then((tx) => tx.wait());
     console.log("\t t1 Gas Used", t.gasUsed);
     console.log("\t t2 Gas Used", t1.gasUsed);
