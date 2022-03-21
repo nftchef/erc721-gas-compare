@@ -14,6 +14,14 @@ contract MasonChance is ERC721Enumerable, Ownable {
         }
     }
 
+    /// Same function as above, renamed for readability in gas tests
+    function mintMany(address to, uint256 _quantity) public {
+        uint256 totalSupply = _owners.length;
+        for (uint256 i; i < _quantity; i++) {
+            _mint(_msgSender(), totalSupply + i);
+        }
+    }
+
     function tokenURI(uint256 tokenId)
         public
         pure

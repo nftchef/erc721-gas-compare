@@ -23,14 +23,32 @@ describe("Open Zeppelin", () => {
     console.log("\t t1 Gas Used", t.gasUsed);
     console.log("\t t2 Gas Used", t1.gasUsed);
   });
+  context("Mint many", async () => {
+    it("Mint 10", async () => {
+      const [acc1, acc2] = await ethers.getSigners();
+
+      const t = await unoptomized
+        .mintMany(acc1.address, 10)
+        .then((tx) => tx.wait());
+      const t1 = await unoptomized
+        .mintMany(acc2.address, 10)
+        .then((tx) => tx.wait());
+      const t2 = await unoptomized
+        .mintMany(acc2.address, 10)
+        .then((tx) => tx.wait());
+      console.log("\t Token 0 Gas Used", t.gasUsed);
+      console.log("\t t2 Gas Used", t1.gasUsed);
+      console.log("\t t3 Gas Used", t2.gasUsed);
+    });
+  });
 });
 
-describe("Optimized", () => {
+describe("Blimpie", () => {
   beforeEach(async () => {
-    const Optimized = await ethers.getContractFactory("Optimized");
-    optimized = await Optimized.deploy();
+    const Blimpie = await ethers.getContractFactory("Blimpie");
+    optimized = await Blimpie.deploy();
   });
-  it("Optimized mint", async () => {
+  it("Blimpie mint", async () => {
     const [acc1, acc2] = await ethers.getSigners();
 
     const t = await optimized.safeMint(acc2.address, 3).then((tx) => tx.wait());
@@ -40,11 +58,29 @@ describe("Optimized", () => {
     console.log("\t t1 Gas Used", t.gasUsed);
     console.log("\t t2 Gas Used", t1.gasUsed);
   });
+  context("Mint many", async () => {
+    it("Mint 10", async () => {
+      const [acc1, acc2] = await ethers.getSigners();
+
+      const t = await optimized
+        .mintMany(acc1.address, 10)
+        .then((tx) => tx.wait());
+      const t1 = await optimized
+        .mintMany(acc2.address, 10)
+        .then((tx) => tx.wait());
+      const t2 = await optimized
+        .mintMany(acc2.address, 10)
+        .then((tx) => tx.wait());
+      console.log("\t Token 0 Gas Used", t.gasUsed);
+      console.log("\t t2 Gas Used", t1.gasUsed);
+      console.log("\t t3 Gas Used", t2.gasUsed);
+    });
+  });
 });
 
 describe("Genetic Chain @Papaver", () => {
   beforeEach(async () => {
-    const Golden = await ethers.getContractFactory("Golden");
+    const Golden = await ethers.getContractFactory("GeneticChain");
     golden_optimized = await Golden.deploy();
   });
   it("papaver mint", async () => {
@@ -62,6 +98,25 @@ describe("Genetic Chain @Papaver", () => {
     console.log("\t Token 0 Gas Used", t.gasUsed);
     console.log("\t t2 Gas Used", t1.gasUsed);
     console.log("\t t3 Gas Used", t2.gasUsed);
+  });
+
+  context("Mint many", async () => {
+    it("Mint 10", async () => {
+      const [acc1, acc2] = await ethers.getSigners();
+
+      const t = await golden_optimized
+        .mintMany(acc1.address, 10)
+        .then((tx) => tx.wait());
+      const t1 = await golden_optimized
+        .mintMany(acc2.address, 10)
+        .then((tx) => tx.wait());
+      const t2 = await golden_optimized
+        .mintMany(acc2.address, 10)
+        .then((tx) => tx.wait());
+      console.log("\t Token 0 Gas Used", t.gasUsed);
+      console.log("\t t2 Gas Used", t1.gasUsed);
+      console.log("\t t3 Gas Used", t2.gasUsed);
+    });
   });
 });
 
@@ -85,6 +140,24 @@ describe("Nuclear Nerds: Mason Chance", () => {
     console.log("\t Token 0 Gas Used", t.gasUsed);
     console.log("\t t2 Gas Used", t1.gasUsed);
     console.log("\t t3 Gas Used", t2.gasUsed);
+  });
+  context("Mint many", async () => {
+    it("Mint 10", async () => {
+      const [acc1, acc2] = await ethers.getSigners();
+
+      const t = await masonChance
+        .mintMany(acc1.address, 10)
+        .then((tx) => tx.wait());
+      const t1 = await masonChance
+        .mintMany(acc2.address, 10)
+        .then((tx) => tx.wait());
+      const t2 = await masonChance
+        .mintMany(acc2.address, 10)
+        .then((tx) => tx.wait());
+      console.log("\t Token 0 Gas Used", t.gasUsed);
+      console.log("\t t2 Gas Used", t1.gasUsed);
+      console.log("\t t3 Gas Used", t2.gasUsed);
+    });
   });
 });
 
