@@ -41,6 +41,21 @@ describe("Open Zeppelin", () => {
       console.log("\t t3 Gas Used", t2.gasUsed);
     });
   });
+  context("Transfers", async () => {
+    let acc1;
+    let acc2;
+    let acc3;
+    beforeEach(async () => {
+      [acc1, acc2, acc3] = await ethers.getSigners();
+      await unoptomized.safeMint(acc1.address, 0).then((tx) => tx.wait());
+    });
+    it("transfers a single token", async () => {
+      const t = await unoptomized
+        .transferFrom(acc1.address, acc3.address, 0)
+        .then((tx) => tx.wait());
+      console.log("\t Transfer Gas Used", t.gasUsed);
+    });
+  });
 });
 
 describe("Blimpie", () => {
@@ -74,6 +89,21 @@ describe("Blimpie", () => {
       console.log("\t Token 0 Gas Used", t.gasUsed);
       console.log("\t t2 Gas Used", t1.gasUsed);
       console.log("\t t3 Gas Used", t2.gasUsed);
+    });
+  });
+  context("Transfers", async () => {
+    let acc1;
+    let acc2;
+    let acc3;
+    beforeEach(async () => {
+      [acc1, acc2, acc3] = await ethers.getSigners();
+      await optimized.safeMint(acc1.address, 1).then((tx) => tx.wait());
+    });
+    it("transfers a single token", async () => {
+      const t = await optimized
+        .transferFrom(acc1.address, acc3.address, 0)
+        .then((tx) => tx.wait());
+      console.log("\t Transfer Gas Used", t.gasUsed);
     });
   });
 });
@@ -118,6 +148,22 @@ describe("Genetic Chain @Papaver", () => {
       console.log("\t t3 Gas Used", t2.gasUsed);
     });
   });
+
+  context("Transfers", async () => {
+    let acc1;
+    let acc2;
+    let acc3;
+    beforeEach(async () => {
+      [acc1, acc2, acc3] = await ethers.getSigners();
+      await golden_optimized.safeMint(acc1.address).then((tx) => tx.wait());
+    });
+    it("transfers a single token", async () => {
+      const t = await golden_optimized
+        .transferFrom(acc1.address, acc3.address, 0)
+        .then((tx) => tx.wait());
+      console.log("\t Transfer Gas Used", t.gasUsed);
+    });
+  });
 });
 
 describe("Nuclear Nerds: Mason Chance", () => {
@@ -159,6 +205,22 @@ describe("Nuclear Nerds: Mason Chance", () => {
       console.log("\t t3 Gas Used", t2.gasUsed);
     });
   });
+
+  context("Transfers", async () => {
+    let acc1;
+    let acc2;
+    let acc3;
+    beforeEach(async () => {
+      [acc1, acc2, acc3] = await ethers.getSigners();
+      await masonChance.safeMint(acc1.address, 1).then((tx) => tx.wait());
+    });
+    it("transfers a single token", async () => {
+      const t = await masonChance
+        .transferFrom(acc1.address, acc3.address, 0)
+        .then((tx) => tx.wait());
+      console.log("\t Transfer Gas Used", t.gasUsed);
+    });
+  });
 });
 
 describe("Azuki", () => {
@@ -168,7 +230,6 @@ describe("Azuki", () => {
   });
   it("Azuki mint singles", async () => {
     const [acc1, acc2] = await ethers.getSigners();
-
     const t = await azuki.safeMint(acc1.address, 1).then((tx) => tx.wait());
     const t1 = await azuki.safeMint(acc2.address, 1).then((tx) => tx.wait());
     const t2 = await azuki.safeMint(acc2.address, 1).then((tx) => tx.wait());
@@ -180,13 +241,28 @@ describe("Azuki", () => {
   context("Mint many", async () => {
     it("Mint 10", async () => {
       const [acc1, acc2] = await ethers.getSigners();
-
       const t = await azuki.mintMany(acc1.address, 10).then((tx) => tx.wait());
       const t1 = await azuki.mintMany(acc2.address, 10).then((tx) => tx.wait());
       const t2 = await azuki.mintMany(acc2.address, 10).then((tx) => tx.wait());
       console.log("\t Token 0 Gas Used", t.gasUsed);
       console.log("\t t2 Gas Used", t1.gasUsed);
       console.log("\t t3 Gas Used", t2.gasUsed);
+    });
+  });
+
+  context("Transfers", async () => {
+    let acc1;
+    let acc2;
+    let acc3;
+    beforeEach(async () => {
+      [acc1, acc2, acc3] = await ethers.getSigners();
+      await azuki.safeMint(acc1.address, 1).then((tx) => tx.wait());
+    });
+    it("transfers a single token", async () => {
+      const t = await azuki
+        .transferFrom(acc1.address, acc3.address, 0)
+        .then((tx) => tx.wait());
+      console.log("\t Transfer Gas Used", t.gasUsed);
     });
   });
 });
@@ -230,6 +306,21 @@ describe("ERC1155D", () => {
       console.log("\t Token 0 Gas Used", t.gasUsed);
       console.log("\t t2 Gas Used", t1.gasUsed);
       console.log("\t t3 Gas Used", t2.gasUsed);
+    });
+  });
+  context("Transfers", async () => {
+    let acc1;
+    let acc2;
+    let acc3;
+    beforeEach(async () => {
+      [acc1, acc2, acc3] = await ethers.getSigners();
+      await contractInstance.mint(acc1.address).then((tx) => tx.wait());
+    });
+    it("transfers a single token", async () => {
+      const t = await contractInstance
+        .safeTransferFrom(acc1.address, acc3.address, 0, 1, "0x")
+        .then((tx) => tx.wait());
+      console.log("\t Transfer Gas Used", t.gasUsed);
     });
   });
 });

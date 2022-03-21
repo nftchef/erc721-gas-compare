@@ -5,7 +5,7 @@ import "./base/ERC1155D.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract ElevenFiftyFiveD is ERC1155, Ownable {
-    uint256 public supply = 1;
+    uint256 public supply;
 
     constructor(string memory uri) ERC1155(uri) {}
 
