@@ -87,3 +87,76 @@ describe("Nuclear Nerds: Mason Chance", () => {
     console.log("\t t3 Gas Used", t2.gasUsed);
   });
 });
+
+describe("Azuki", () => {
+  beforeEach(async () => {
+    const AZ = await ethers.getContractFactory("Azuki");
+    azuki = await AZ.deploy();
+  });
+  it("Azuki mint singles", async () => {
+    const [acc1, acc2] = await ethers.getSigners();
+
+    const t = await azuki.safeMint(acc1.address, 1).then((tx) => tx.wait());
+    const t1 = await azuki.safeMint(acc2.address, 1).then((tx) => tx.wait());
+    const t2 = await azuki.safeMint(acc2.address, 1).then((tx) => tx.wait());
+    console.log("\t Token 0 Gas Used", t.gasUsed);
+    console.log("\t t2 Gas Used", t1.gasUsed);
+    console.log("\t t3 Gas Used", t2.gasUsed);
+  });
+
+  context("Mint many", async () => {
+    it("Mint 10", async () => {
+      const [acc1, acc2] = await ethers.getSigners();
+
+      const t = await azuki.mintMany(acc1.address, 10).then((tx) => tx.wait());
+      const t1 = await azuki.mintMany(acc2.address, 10).then((tx) => tx.wait());
+      const t2 = await azuki.mintMany(acc2.address, 10).then((tx) => tx.wait());
+      console.log("\t Token 0 Gas Used", t.gasUsed);
+      console.log("\t t2 Gas Used", t1.gasUsed);
+      console.log("\t t3 Gas Used", t2.gasUsed);
+    });
+  });
+});
+
+describe("ERC1155D", () => {
+  let contractInstance;
+  beforeEach(async () => {
+    const elevenFiftyFiveD = await ethers.getContractFactory(
+      "ElevenFiftyFiveD"
+    );
+    contractInstance = await elevenFiftyFiveD.deploy("ipfs://uri");
+  });
+
+  it("1155D Mint", async () => {
+    const [acc1, acc2] = await ethers.getSigners();
+
+    const t = await contractInstance.mint(acc1.address).then((tx) => tx.wait());
+    const t1 = await contractInstance
+      .mint(acc2.address)
+      .then((tx) => tx.wait());
+    const t2 = await contractInstance
+      .mint(acc2.address)
+      .then((tx) => tx.wait());
+    console.log("\t Token 0 Gas Used", t.gasUsed);
+    console.log("\t t2 Gas Used", t1.gasUsed);
+    console.log("\t t3 Gas Used", t2.gasUsed);
+  });
+  context("Mint many", async () => {
+    it("Mint 10", async () => {
+      const [acc1, acc2] = await ethers.getSigners();
+
+      const t = await contractInstance
+        .mintMany(acc1.address, 10)
+        .then((tx) => tx.wait());
+      const t1 = await contractInstance
+        .mintMany(acc2.address, 10)
+        .then((tx) => tx.wait());
+      const t2 = await contractInstance
+        .mintMany(acc2.address, 10)
+        .then((tx) => tx.wait());
+      console.log("\t Token 0 Gas Used", t.gasUsed);
+      console.log("\t t2 Gas Used", t1.gasUsed);
+      console.log("\t t3 Gas Used", t2.gasUsed);
+    });
+  });
+});
